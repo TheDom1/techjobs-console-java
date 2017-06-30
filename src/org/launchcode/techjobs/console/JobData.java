@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -76,7 +77,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -84,6 +85,38 @@ public class JobData {
         return jobs;
     }
 
+    /*
+     * Return results of a search job that uses the value
+     *
+     * @param value Value of the field to search for
+     * @return List of all jobs matching the criteria
+     */
+    public static ArrayList<HashMap<String, String>> findByValue(String value) {
+        loadData();
+        ArrayList<HashMap<String, String>> foundJobs = new ArrayList<>();
+
+        for (HashMap<String, String> row : allJobs) {
+            for (String row_value: row.values()) {
+                if(row_value.toLowerCase().contains(value.toLowerCase())){
+                    foundJobs.add(row);
+                    break;
+                }
+
+                //            HashMap<String, String> job_property = job.next();
+//            System.out.println( "Your property is: " + job_property );
+
+//            String my_output = job_property.get("position type");
+
+//            System.out.println( "Position Type; " + job_property.get("position type") );
+//            System.out.println( "Name; " + job_property.get("name") );
+//            System.out.println("employer; " + job_property.get("employer") );
+            }
+
+
+        } 		return foundJobs;
+
+
+    }
     /**
      * Read in data from a CSV file and store it in a list
      */
